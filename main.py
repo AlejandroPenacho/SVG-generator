@@ -1,32 +1,47 @@
-#import pdb
-#pdb.set_trace()
+# import pdb
+# pdb.set_trace()
 
 class SVGelement:
-	def __init__(self, id):
-		self.id = id
+	def __init__(self):
+		self.type = ""
+		self.data = {}
 		self.children = []
 
 	def add_children(self, children):
 		self.children.append(children)
 
-
-class SVGgroup(SVGelement):
-	def __init__(self, id):
-		self.id = id
-		self.children = []
-	
-	def add_children(self, children):
-		self.children.append(children)
-
-class SVGobject(SVGelement):
-	def __init__(self, type, id):
-		self.id = id
-		self.type = type
+	def __str__(self):
+		out = f"<{self.type}"
+		for key,val in self.data.items():
+			out += f"\n\t{key}\t:\t{val}"
+		out+= "\t>\n"
+		if len(self.children)>0:
+			out += f"\nWith {len(self.children)} children\n"
+		return out
 
 
-def parse_svg(filename):
+	def print_to_file(self, file, left_tabs=0):
+		
+		pre_space = "\t" * left_tabs
+		file.write(f"{pre_space}<{self.type}")
+
+		for key,val in self.data.items():
+			file.write(f"\n{pre_space}\t{key}={val}")
+
+		if len(self.children)==0:
+			file.write("/>\n")
+			return
+		
+		file.write(">\n")
+		for child in self.children:
+			child.print_to_file(file, left_tabs+1)
+		file.write(f"{pre_space}</{self.type}>\n")
+
+
+def parse_svg(filename, skip_lines=2):
 	file = open(filename)
-	return add_element(file)
+	[file.readline() for i in range(skip_lines)]
+	return add_element(file)[1]
 
 def add_element(file):
 	# Gets the data and children of the next element in the file. Since the next
@@ -81,9 +96,19 @@ def get_block(file):
 
 
 def process_block(data_lines):
-	out = SVGelement("www")
-	out.data = data_lines
-	return out
 
-out = parse_svg("test/example.svg")
+	new_element = SVGelement()
 
+	for index, line in enumerate(data_lines):
+		processed_line = line.lstrip("<").rstrip(" />").split("=", 1)
+		if index == 0:
+			new_element.type = processed_line[0]
+		else:
+			new_element.data.update({processed_line[0]: processed_line[1]})
+
+	return new_element
+
+out = parse_svg("test/example.svg", 0)
+newf = open("out.svg","w")
+out.print_to_file(newf)
+newf.close()
