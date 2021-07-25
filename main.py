@@ -6,6 +6,8 @@ class SVGelement:
 		self.type = ""
 		self.data = {}
 		self.children = []
+		self.parent = None
+		self.depth = 0
 
 	def add_children(self, children):
 		self.children.append(children)
@@ -19,6 +21,11 @@ class SVGelement:
 			out += f"\nWith {len(self.children)} children\n"
 		return out
 
+	def __repr__(self):
+		out = f"<{self.type}/>"
+		if len(self.children)>0:
+			out += f" +{len(self.children)}"
+		return out
 
 	def print_to_file(self, file, left_tabs=0):
 		
@@ -43,7 +50,7 @@ def parse_svg(filename, skip_lines=2):
 	[file.readline() for i in range(skip_lines)]
 	return add_element(file)[1]
 
-def add_element(file):
+def add_element(file, depth=0, parent = None):
 	# Gets the data and children of the next element in the file. Since the next
 	# line can contain the end of the current element (like </circle>), the
 	# output value has two elements : [endCurrentElement, element]. 
@@ -51,15 +58,20 @@ def add_element(file):
 	[type, element] = get_block(file)	
 	if (type == "endCurrentElement"):
 		return [True, 0]
-	elif (type == "noChildren"):
+
+	element.parent = parent
+	element.depth = depth
+
+	if (type == "noChildren"):
 		return [False, element]
-	
-	while True:
-		[endThisElement, child] = add_element(file)	
-		if endThisElement:
-			return [False, element]
-		else:
-			element.add_children(child)
+
+	else:
+		while True:
+			[endThisElement, child] = add_element(file, depth=(depth+1), parent=element)
+			if endThisElement:
+				return [False, element]
+			else:
+				element.add_children(child)
 		
 	
 
@@ -108,7 +120,7 @@ def process_block(data_lines):
 
 	return new_element
 
-out = parse_svg("test/example.svg", 0)
-newf = open("out.svg","w")
+out = parse_svg("test/baseDice.svg", 3)
+newf = open("test/out.svg","w")
 out.print_to_file(newf)
 newf.close()
