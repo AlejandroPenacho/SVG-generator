@@ -1,8 +1,20 @@
 # import pdb
 # pdb.set_trace()
+import copy
+
+def flatten(list):
+	# Takes a list of lists and return a single list, by concatenating 
+	# the elements
+	return [x for xx in list for x in xx]
+
 
 class SVGelement:
+	# Represents a single SVG element, whether a single object, a group,
+	# or the root element (<svg>)
+
 	def __init__(self):
+		# Creates the basic element, with no data attached to it
+
 		self.type = ""
 		self.data = {}
 		self.children = []
@@ -43,6 +55,24 @@ class SVGelement:
 		for child in self.children:
 			child.print_to_file(file, left_tabs+1)
 		file.write(f"{pre_space}</{self.type}>\n")
+
+	
+	def modify(self, pre_fun=(lambda x: [x]), pos_fun=(lambda x: [x])):
+		list_of_pre_elements = pre_fun(self)
+
+		for pre_element in list_of_pre_elements:
+			new_children = []
+			for child in pre_element.children:
+				new_children.append(child.modify(pre_fun, pos_fun))
+			pre_element.children = flatten(new_children)
+		
+
+		element_flat_list = flatten(map(pos_fun, list_of_pre_elements))
+
+		if (self.depth == 0):
+			return element_flat_list[0]
+		else:
+			return element_flat_list
 
 
 def parse_svg(filename, skip_lines=2):
@@ -108,6 +138,9 @@ def get_block(file):
 
 
 def process_block(data_lines):
+	# Takes of block of data (starting with < and ending with >) and creates
+	# an SVG element out of it. The depth, parent and children of the element
+	# must be obtained later
 
 	new_element = SVGelement()
 
@@ -120,7 +153,11 @@ def process_block(data_lines):
 
 	return new_element
 
-out = parse_svg("test/baseDice.svg", 3)
+
+out = parse_svg("test/example.svg", 0)
+
+out = out.modify(pre_fun= lambda x: [copy.deepcopy(x), copy.deepcopy(x)])
+
 newf = open("test/out.svg","w")
 out.print_to_file(newf)
 newf.close()
