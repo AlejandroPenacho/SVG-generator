@@ -45,7 +45,7 @@ class SVGelement:
 		file.write(f"{pre_space}<{self.type}")
 
 		for key,val in self.data.items():
-			file.write(f"\n{pre_space}\t{key}={val}")
+			file.write(f"\n{pre_space}\t{key}=\"{val}\"")
 
 		if len(self.children)==0:
 			file.write("/>\n")
@@ -149,7 +149,7 @@ def process_block(data_lines):
 		if index == 0:
 			new_element.type = processed_line[0]
 		else:
-			new_element.data.update({processed_line[0]: processed_line[1]})
+			new_element.data.update({processed_line[0]: processed_line[1].strip('"')})
 
 	return new_element
 
