@@ -58,6 +58,18 @@ class SVGelement:
 
 	
 	def modify(self, pre_fun=(lambda x: [x]), pos_fun=(lambda x: [x])):
+
+		# Function to modify SVG elements recursively. It performs the pre_fun
+		# on the element, then the whole modification on each children, and
+		# then the pos_fun. It is able to handle modifications that involve
+		# generating more elements, or deleting them.
+		#
+		# The pre_fun and the pos_fun must be functions that take a SVGelement,
+		# and return a list of SVGelements. The modify method takes care of
+		# flattening the list. It is recommended to use deepcopy in the
+		# functions, since the default behaviour of python just uses references,
+		# and can lead to the same element being modified several times.
+
 		list_of_pre_elements = pre_fun(self)
 
 		for pre_element in list_of_pre_elements:
@@ -76,6 +88,8 @@ class SVGelement:
 
 
 def parse_svg(filename, skip_lines=2):
+	# Takes an SVG file by name, and returns its root element
+	
 	file = open(filename)
 	[file.readline() for i in range(skip_lines)]
 	return add_element(file)[1]
@@ -152,12 +166,3 @@ def process_block(data_lines):
 			new_element.data.update({processed_line[0]: processed_line[1].strip('"')})
 
 	return new_element
-
-
-out = parse_svg("test/example.svg", 0)
-
-out = out.modify(pre_fun= lambda x: [copy.deepcopy(x), copy.deepcopy(x)])
-
-newf = open("test/out.svg","w")
-out.print_to_file(newf)
-newf.close()
