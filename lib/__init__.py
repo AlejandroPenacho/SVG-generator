@@ -1,1 +1,2 @@
-from .base import *
+from .svg_structs import *
+from .parser import *

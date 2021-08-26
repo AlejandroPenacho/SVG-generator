@@ -1,6 +1,5 @@
 # import pdb
 # pdb.set_trace()
-import copy
 
 def flatten(list):
 	# Takes a list of lists and return a single list, by concatenating 
@@ -93,6 +92,7 @@ def parse_svg(filename, skip_lines=2):
 	file = open(filename)
 	[file.readline() for i in range(skip_lines)]
 	return add_element(file)[1]
+
 
 def add_element(file, depth=0, parent = None):
 	# Gets the data and children of the next element in the file. Since the next

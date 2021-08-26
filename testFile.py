@@ -1,8 +1,12 @@
 import lib
 import copy
 
-baseDice = lib.parse_svg("test/baseDice.svg", 3)
+dice_file = lib.SVGfile("test/baseDice.svg")
 
+dice = dice_file.parse_svg(3);
+
+
+'''
 dice_pass = [
     ["middle"],
     ["bottomleft", "topright"],
@@ -32,3 +36,4 @@ for i in range(0, 6):
     file = open(f"test/allDices/dice{i+1}.svg", "w")
     new_dice.print_to_file(file)
     file.close()
+'''
