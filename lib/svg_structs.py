@@ -29,6 +29,20 @@ class SVGgroup(SVGelement):
     def __repr__(self):
         return f'<{self.name} ({len(self.data)}/{len(self.children)}) />'
 
+    def print_to_file(self, svg_file, ident=''):
+
+        new_ident = ident + svg_file.ident_type
+        text = f'{ident}<{self.name}'
+        for param in self.data.keys():
+            text += f'\n{new_ident}{param}="{self.data[param]}"'
+        text += '>\n'
+        svg_file.file.write(text)
+
+        for child in self.children:
+            child.print_to_file(svg_file, new_ident)
+        
+        svg_file.file.write(f'{ident}</{self.name}>\n')
+        
 
 class SVGsingle(SVGelement):
     def __init__(self, name, data):
@@ -42,6 +56,16 @@ class SVGsingle(SVGelement):
 
     def __repr__(self):
         return f'<{self.name} ({len(self.data)}) />'
+    
+    def print_to_file(self, svg_file, ident=''):
+
+        new_ident = ident + svg_file.ident_type
+        text = f'{ident}<{self.name}'
+        for param in self.data.keys():
+            text += f'\n{new_ident}{param}="{self.data[param]}"'
+        text += '/>\n'
+        svg_file.file.write(text)
+
 
 class SVGtext(SVGelement):
     def __init__(self, text):

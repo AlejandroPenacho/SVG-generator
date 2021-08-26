@@ -2,9 +2,14 @@ import lib
 import copy
 
 dice_file = lib.SVGfile("test/baseDice.svg")
+new_file = lib.SVGfile("test/theNewOne.svg", 'w')
 
 dice = dice_file.parse_svg(3);
 
+dice.print_to_file(new_file)
+
+dice_file.close()
+new_file.close()
 
 '''
 dice_pass = [

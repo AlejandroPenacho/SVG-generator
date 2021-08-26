@@ -3,9 +3,10 @@ from .svg_structs import *
 
 
 class SVGfile:
-    def __init__(self, filename):
-        self.file = open(filename)
+    def __init__(self, filename, mode='r'):
+        self.file = open(filename, mode)
         self.buffer = ''
+        self.ident_type = '   '
 
     def close(self):
         self.file.close()
