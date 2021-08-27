@@ -35,13 +35,23 @@ class SVGgroup(SVGelement):
         text = f'{ident}<{self.name}'
         for param in self.data.keys():
             text += f'\n{new_ident}{param}="{self.data[param]}"'
-        text += '>\n'
+        text += '>'
+
+        if self.name != 'tspan' and self.name != 'text':
+            text += '\n'
+
         svg_file.file.write(text)
 
         for child in self.children:
             child.print_to_file(svg_file, new_ident)
         
-        svg_file.file.write(f'{ident}</{self.name}>\n')
+        if self.name != 'tspan' and self.name != 'text':
+            svg_file.file.write(f'{ident}</{self.name}>')
+        else:
+            svg_file.file.write(f'</{self.name}>')
+
+        if self.name != "tspan":
+            svg_file.file.write('\n')
         
 
 class SVGsingle(SVGelement):
@@ -78,3 +88,6 @@ class SVGtext(SVGelement):
 
     def __repr__(self):
         return f'<text />'
+
+    def print_to_file(self, svg_file, ident=''):
+        svg_file.file.write(self.text)

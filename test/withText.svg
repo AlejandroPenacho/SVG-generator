@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1920"
+   height="1080"
+   viewBox="0 0 508 285.75"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (ce6663b3b7, 2021-05-25)"
+   sodipodi:docname="withText.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:zoom="2.7895833"
+     inkscape:cx="535.92234"
+     inkscape:cy="466.01942"
+     inkscape:window-width="1920"
+     inkscape:window-height="1052"
+     inkscape:window-x="1366"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <rect
+       x="464.70743"
+       y="379.96207"
+       width="160.60867"
+       height="166.93591"
+       id="rect10228" />
+    <rect
+       x="452.60688"
+       y="433.43098"
+       width="86.241118"
+       height="43.344771"
+       id="rect3960" />
+  </defs>
+  <g
+     inkscape:label="Capa 1"
+     id="layer1">
+    <rect
+       style="fill:#d2d2d2;fill-opacity:1;stroke:#000000;stroke-width:4.10104;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1156"
+       width="63.204632"
+       height="63.204632"
+       x="115.78801"
+       y="92.4487"
+       inkscape:label="frame" />
+    <g
+       id="g13"
+       inkscape:label="dots">
+      <circle
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.10104;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="middle"
+         cx="147.19"
+         cy="124.00076"
+         r="4.642323"
+         inkscape:label="middle" />
+      <circle
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.10104;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="bottomleft"
+         cx="129.28282"
+         cy="141.98192"
+         r="4.642323"
+         inkscape:label="bottomleft" />
+    </g>
+    <g
+       id="help-lines"
+       inkscape:label="help-lines">
+      <rect
+         style="fill:#9a9a9a;fill-opacity:0.707176;stroke:#000000;stroke-width:0.264583;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect146"
+         width="36.226894"
+         height="36.226894"
+         x="129.08342"
+         y="105.94658" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,6.6632727,-6.0476362)"
+       id="text10226"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect10228);fill:#000000;fill-opacity:1;stroke:none"><tspan
+         x="464.70703"
+         y="415.35352"
+         id="tspan20416">sddsaa</tspan></text>
+    </g>
+  </g>
+</svg>

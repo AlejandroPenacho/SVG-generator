@@ -1,10 +1,10 @@
 import lib
 import copy
 
-dice_file = lib.SVGfile("test/baseDice.svg")
+dice_file = lib.SVGfile("test/withText.svg")
 new_file = lib.SVGfile("test/theNewOne.svg", 'w')
 
-dice = dice_file.parse_svg(3);
+dice = dice_file.parse_svg(1);
 
 dice.print_to_file(new_file)
 
